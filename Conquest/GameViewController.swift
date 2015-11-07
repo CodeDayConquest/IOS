@@ -21,6 +21,19 @@ class GameViewController: UIViewController {
             skView.showsFPS = true
             skView.showsNodeCount = true
             
+            // Detect the screensize
+            let sizeRect = UIScreen.mainScreen().applicationFrame
+            let width = sizeRect.size.width * UIScreen.mainScreen().scale
+            let height = sizeRect.size.height * UIScreen.mainScreen().scale
+            
+            // Scene should be shown in fullscreen mode
+            let scene = GameScene(size: CGSizeMake(width, height))
+            
+            
+            // Configure the view.
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
             /* Sprite Kit applies additional optimizations to improve rendering performance */
             skView.ignoresSiblingOrder = true
             
@@ -28,6 +41,7 @@ class GameViewController: UIViewController {
             scene.scaleMode = .AspectFill
             
             skView.presentScene(scene)
+
         }
     }
 

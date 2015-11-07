@@ -16,6 +16,9 @@ class GameScene: SKScene {
         myLabel.fontSize = 45;
         myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
         
+        // add player to screen
+        
+        
         self.addChild(myLabel)
     }
     
