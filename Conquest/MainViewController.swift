@@ -7,13 +7,29 @@
 //
 
 import UIKit
+import Socket_IO_Client_Swift
 
 class MainViewController: UIViewController {
 
     @IBOutlet weak var playButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        let socket = SocketIOClient(socketURL: "http://45.55.169.135:3000", options: [.Log(true), .ForcePolling(true)])
+        
+        socket.on("connect") { data, ack in
+            print("socket connected")
+        }
+        
+        socket.on("error") { data, ack in
+            self.playButton.enabled = false
+            self.playButton.titleLabel?.text = "Can't connect"
+            
+        }
+        
+        socket.connect()
+        
         // Do any additional setup after loading the view.
     }
 
