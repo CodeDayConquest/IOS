@@ -22,16 +22,16 @@ class GameScene: SKScene {
     var kickButton: SKSpriteNode! = nil
     var blockButton: SKSpriteNode! = nil
     
-    override func didMoveToView(view: SKView)
-    {
+    override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         // Add Player to Screen
         
         /// Player One
-        player = Player(health: 100, size: CGSize(width: 100, height: 100), pos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerImage: nil, level: 1, playerXP: 100);
+        player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: 0, matchID: 0, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Right)
         
         /// Player Two
-        player_two = Player(health: 100, size: CGSize(width: 100, height: 100), pos: CGPoint(x: size.width * 0.75, y: size.height / 2.0), playerImage: nil, level: 1, playerXP: 100);
+        
+        player_two =  Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.75, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: 0, matchID: 0, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Left)
         
         // Add Buttons to Screen
         
@@ -52,7 +52,7 @@ class GameScene: SKScene {
         /// Kick Button
         
         /// Block Button
-
+        
         // Add objects to Screen
         self.addChild(player)
         self.addChild(player_two)
@@ -66,18 +66,22 @@ class GameScene: SKScene {
         
         for touch in touches {
             let location = touch.locationInNode(self)
-            if rightButton.containsPoint(location) {
-                moveRight()
-                print("right!")
-            }
-            
-            if leftButton.containsPoint(location) {
-                moveLeft()
-                print("left")
-            }
+            //            if rightButton.containsPoint(location) {
+            //                moveRight()
+            //                print("right!")
+            //            }
+            //
+            //            if leftButton.containsPoint(location) {
+            //                moveLeft()
+            //                print("left")
+            //            }
             
             if punchButton.containsPoint(location) {
-                attack(10, block: true)
+                if player.playerState == .Block {
+                    attack(10, block: true)
+                } else {
+                    attack(20, block: false)
+                }
             }
             
         }
