@@ -114,42 +114,5 @@
             </objects>
             <point key="canvasLocation" x="1995" y="35"/>
         </scene>
-        <!--Socket-->
-        <scene sceneID="UL7-7S-WoR">
-            <objects>
-                <viewController id="1Go-sO-E6u" customClass="Socket" customModule="Conquest" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="gol-5x-pXS"/>
-                        <viewControllerLayoutGuide type="bottom" id="Z6b-7I-4z3"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7q4-VW-SBo">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z7j-Mr-ZIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="255" y="942"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="bk9-ok-dlO">
-            <objects>
-                <viewController id="OTc-Ff-9sN" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Z9n-m8-18U"/>
-                        <viewControllerLayoutGuide type="bottom" id="BvV-KQ-P23"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qLP-xe-Vv8">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Wru-Yx-Nry" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
 </document>

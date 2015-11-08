@@ -25,19 +25,9 @@ class GameScene: SKScene {
     
     var hasStarted: Bool = false
     
-    //let socket = SocketIOClient(socketURL: "http://45.55.169.135:3000", options: [.Log(true), .ForcePolling(true)])
-    
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
         // Add Player to Screen
-        
-        /// Player One
-        player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: "", playerState: PlayerState.Idle, playerDirection: PlayerDirection.Right)
-        
-        
-        /// Player Two
-        other_player =  Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.75, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: "", playerState: PlayerState.Idle, playerDirection: PlayerDirection.Left)
-        
         // Add Buttons to Screen
         
         let platform = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: size.width, height: 10))
@@ -51,7 +41,7 @@ class GameScene: SKScene {
         rightButton = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: size.width / 7, height: size.width / 7))
         rightButton.position = CGPoint(x: leftButton.size.width + leftButton.size.width / 10 + rightButton.size.width / 2, y: rightButton.size.height / 10 + rightButton.size.height / 2)
         
-       
+        
         /// Jump Button
         
         /// Punch Button
@@ -66,189 +56,215 @@ class GameScene: SKScene {
         blockButton = SKSpriteNode(color: UIColor.grayColor(), size: CGSize(width: size.width / 7, height: size.width / 7))
         blockButton.position = CGPoint(x: punchButton.position.x - kickButton.size.width - blockButton.size.width - blockButton.size.width / 10, y: blockButton.size.height / 2.0 + blockButton.size.width / 10.0)
         
-
+        
         
         // Add objects to Screen
-        self.addChild(player)
-        self.addChild(other_player)
+
         self.addChild(platform)
         self.addChild(rightButton)
         self.addChild(leftButton)
         self.addChild(kickButton)
         self.addChild(blockButton)
         self.addChild(punchButton)
-
+        
     }
     
     func waitForGame() {
+        print("HELLO")
         socket.on("start") { (data: [AnyObject], ack) -> Void in
-            if data[0] as! String == "left" {
-                print(data[0])
-                print("Hello")
+            if let objects = data[0] as? NSDictionary {
+                
+                self.initPlayer(objects.valueForKey("side") as! String, matchID: objects.valueForKey("matchId") as! String)
+                self.hasStarted = true
             }
-            
-            self.hasStarted = true
         }
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        /* Called when a touch begins */
-        
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            if rightButton.containsPoint(location) {
-                moveRight()
-                print("right!")
-            }
+    func initPlayer(side : String, matchID : String)
+    {
+        if side == "right"
+        {
+            self.player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.75, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Left)
+            
+            
+            self.other_player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Right)
+            
+        }
+        else
+        {
+            
+            self.player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Right)
+            
+            self.other_player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.75, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Left)
 
-            if leftButton.containsPoint(location) {
-                moveLeft()
-                print("left")
-            }
             
-            if punchButton.containsPoint(location) {
-                if other_player.playerState == .Block {
-                    attack(10, block: true)
-                } else {
-                    attack(10, block: false)
+        }
+        self.player.color = UIColor.whiteColor()
+        self.other_player.color = UIColor.redColor()
+        
+        self.addChild(player)
+        self.addChild(other_player)
+        
+
+    }
+        override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+            /* Called when a touch begins */
+            
+            for touch in touches {
+                let location = touch.locationInNode(self)
+                if rightButton.containsPoint(location) {
+                    moveRight()
+                    print("right!")
                 }
                 
-                player.playerState = .Punch
-            }
-            
-            if kickButton.containsPoint(location) {
-                if other_player.playerState == .Block {
-                    attack(20, block: true)
-                } else {
-                    attack(20, block: false)
+                if leftButton.containsPoint(location) {
+                    moveLeft()
+                    print("left")
                 }
                 
-                player.playerState = .Kick
+                if punchButton.containsPoint(location) {
+                    if other_player.playerState == .Block {
+                        attack(10, block: true)
+                    } else {
+                        attack(10, block: false)
+                    }
+                    
+                    player.playerState = .Punch
+                }
+                
+                if kickButton.containsPoint(location) {
+                    if other_player.playerState == .Block {
+                        attack(20, block: true)
+                    } else {
+                        attack(20, block: false)
+                    }
+                    
+                    player.playerState = .Kick
+                }
+                
+                if blockButton.containsPoint(location) {
+                    player.playerState = .Block
+                    socket.emit("blocked", player.playerState.rawValue)
+                }
+                
             }
-            
-            if blockButton.containsPoint(location) {
-                player.playerState = .Block
-                socket.emit("blocked", player.playerState.rawValue)
-            }
-            
         }
-    }
-    
-    func moveLeft() {
-        if player.position.x > player.size.width / 2 {
-            if player.playerState == .Block {
-                player.position.x -= 5
+        
+        func moveLeft() {
+            if player.position.x > player.size.width / 2 {
+                if player.playerState == .Block {
+                    player.position.x -= 5
+                } else {
+                    player.position.x -= 10
+                }
+                
+                player.playerState = .Walk
+                player.playerDirection = .Left
+                player.playerPos.x = player.position.x
+                
+                let dict: [String: AnyObject] = ["matchID":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
+                
+                socket.emit("move", dict)
+                
             } else {
-                player.position.x -= 10
+                print("not move")
             }
-            
-            player.playerState = .Walk
-            player.playerDirection = .Left
-            player.playerPos.x = player.position.x
-            
-            let dict: [String: AnyObject] = ["matchID":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
-            
-            socket.emit("move", dict)
-            
-        } else {
-            print("not move")
         }
-    }
-    
-    func moveRight() {
-        if player.position.x < size.width - player.size.width / 2 {
-            if player.playerState == .Block {
-                player.position.x -= 5
+        
+        func moveRight() {
+            if player.position.x < size.width - player.size.width / 2 {
+                if player.playerState == .Block {
+                    player.position.x -= 5
+                } else {
+                    player.position.x += 10
+                }
+                
+                player.playerState = .Walk
+                player.playerDirection = .Right
+                player.playerPos.x = player.position.x
+                
+                let dict: [String: AnyObject] = ["matchID":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
+                
+                socket.emit("move", dict)
+                
             } else {
-                player.position.x += 10
+                print("not move")
             }
-            
-            player.playerState = .Walk
-            player.playerDirection = .Right
-            player.playerPos.x = player.position.x
-            
-            let dict: [String: AnyObject] = ["matchID":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
-            
-            socket.emit("move", dict)
-            
-        } else {
-            print("not move")
-        }
-    }
-    
-    func distance() -> CGFloat {
-        var xDist = CGFloat(other_player.position.x - player.position.x)
-        var yDist = CGFloat(other_player.position.y - player.position.y)
-        
-        if player.position.x + player.size.width / 2 < other_player.position.x - other_player.size.width / 2 {
-            xDist = CGFloat(other_player.position.x - other_player.size.width / 2) - CGFloat(player.position.x + player.size.width / 2)
-        } else if player.position.x - player.size.width / 2 >  other_player.position.x + other_player.size.width / 2 {
-            xDist = CGFloat(player.position.x - player.size.width / 2) - CGFloat(other_player.position.x + other_player.size.width / 2)
-        } else {
-            xDist = 0;
         }
         
-        if player.position.y + player.size.height / 2 < other_player.position.y - other_player.size.height / 2 {
-            yDist = CGFloat(other_player.position.y - other_player.size.height / 2) - CGFloat(player.position.y + player.size.height / 2)
-        } else if player.position.y - player.size.height / 2 > other_player.position.y + other_player.size.width / 2 {
-            yDist = (player.position.y - player.size.height / 2) - (other_player.position.y + other_player.size.height / 2)
-        } else {
-            yDist = 0
-        }
-        
-        // print("x: \(xDist), y: \(yDist)")
-        
-        let distance = sqrt((xDist * xDist) + (yDist * yDist))
-        
-        return distance
-    }
-    
-    func attack(damage: Int, block: Bool) {
-        if distance() < player.size.width {
-            var randDamage = Float(arc4random_uniform(UInt32(damage) + 1))
-            var damageReduction = Float()
+        func distance() -> CGFloat {
+            var xDist = CGFloat(other_player.position.x - player.position.x)
+            var yDist = CGFloat(other_player.position.y - player.position.y)
             
-            if block {
-                damageReduction = Float(arc4random_uniform(UInt32(100) + 1))
+            if player.position.x + player.size.width / 2 < other_player.position.x - other_player.size.width / 2 {
+                xDist = CGFloat(other_player.position.x - other_player.size.width / 2) - CGFloat(player.position.x + player.size.width / 2)
+            } else if player.position.x - player.size.width / 2 >  other_player.position.x + other_player.size.width / 2 {
+                xDist = CGFloat(player.position.x - player.size.width / 2) - CGFloat(other_player.position.x + other_player.size.width / 2)
             } else {
-                print("No block")
+                xDist = 0;
             }
             
-            if damageReduction > randDamage {
-                randDamage = 0
+            if player.position.y + player.size.height / 2 < other_player.position.y - other_player.size.height / 2 {
+                yDist = CGFloat(other_player.position.y - other_player.size.height / 2) - CGFloat(player.position.y + player.size.height / 2)
+            } else if player.position.y - player.size.height / 2 > other_player.position.y + other_player.size.width / 2 {
+                yDist = (player.position.y - player.size.height / 2) - (other_player.position.y + other_player.size.height / 2)
+            } else {
+                yDist = 0
             }
             
-            other_player.playerHealth -= randDamage - damageReduction
-            socket.emit("health", other_player.playerHealth)
+            // print("x: \(xDist), y: \(yDist)")
+            
+            let distance = sqrt((xDist * xDist) + (yDist * yDist))
+            
+            return distance
         }
-    }
-    
-//    func didWin() -> Bool {
-//        if player.playerHealth <= 0 {
-//            return true
-//        } else {
-//            
-//        }
-//    }
-    
-    func setInfo() {
-        let dict: [String: AnyObject] = ["playerHealth":player.playerHealth, "playerSizeHeight":player.playerSize.height, "playerSizeWidth":player.playerSize.width, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerLevel":player.playerLevel, "playerXP":player.playerXP, "playerUUID":player.playerUUID, "matchID":player.matchID, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
         
-        socket.emit("all", dict)
+        func attack(damage: Int, block: Bool) {
+            if distance() < player.size.width {
+                var randDamage = Float(arc4random_uniform(UInt32(damage) + 1))
+                var damageReduction = Float()
+                
+                if block {
+                    damageReduction = Float(arc4random_uniform(UInt32(100) + 1))
+                } else {
+                    print("No block")
+                }
+                
+                if damageReduction > randDamage {
+                    randDamage = 0
+                }
+                
+                other_player.playerHealth -= randDamage - damageReduction
+                socket.emit("health", other_player.playerHealth)
+            }
+        }
         
-        print("emit sent")
-    }
-    
-    func retrieveInfo() {
+        //    func didWin() -> Bool {
+        //        if player.playerHealth <= 0 {
+        //            return true
+        //        } else {
+        //
+        //        }
+        //    }
         
-    }
-    
-    override func update(currentTime: CFTimeInterval) {
-        // setInfo()
-//        if(!hasStarted) {
-//            waitForGame()
-//        }
+        func setInfo() {
+            let dict: [String: AnyObject] = ["playerHealth":player.playerHealth, "playerSizeHeight":player.playerSize.height, "playerSizeWidth":player.playerSize.width, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerLevel":player.playerLevel, "playerXP":player.playerXP, "playerUUID":player.playerUUID, "matchID":player.matchID, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
+            
+            socket.emit("all", dict)
+            
+            print("emit sent")
+        }
         
-        counter++
-    }
+        func retrieveInfo() {
+            
+        }
+        
+        override func update(currentTime: CFTimeInterval) {
+            // setInfo()
+            if(!hasStarted) {
+                waitForGame()
+            }
+            
+            counter++
+        }
 }

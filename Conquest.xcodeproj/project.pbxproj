@@ -20,6 +20,7 @@
 		32C82CF61BEE963300614C1A /* ConquestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C82CF51BEE963300614C1A /* ConquestUITests.swift */; };
 		32C82D061BEE98D700614C1A /* Socket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C82D051BEE98D700614C1A /* Socket.swift */; };
 		D409E236E796F5AB1090FB42 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CFDF64296174C003E7E6972 /* Pods.framework */; };
+		EBF965FC597828A5C5112245 /* Pods_Conquest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 15F1B118187E1204F441592B /* Pods_Conquest.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15F1B118187E1204F441592B /* Pods_Conquest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Conquest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		18A5A1C81BEEC2EE008EFC67 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		18A5A1CA1BEEF5AC008EFC67 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1CFDF64296174C003E7E6972 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D409E236E796F5AB1090FB42 /* Pods.framework in Frameworks */,
+				EBF965FC597828A5C5112245 /* Pods_Conquest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				1CFDF64296174C003E7E6972 /* Pods.framework */,
+				15F1B118187E1204F441592B /* Pods_Conquest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -321,7 +325,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Conquest/Pods-Conquest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C0B3C98EC78107B3E8AAA042 /* Copy Pods Resources */ = {
@@ -336,7 +340,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Conquest/Pods-Conquest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

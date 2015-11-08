@@ -72,8 +72,8 @@ class Player: SKSpriteNode {
         
         self.position = self.playerPos
         
-        
     }
+    
     
     func addXP(xp: Int) {
         playerXP += xp

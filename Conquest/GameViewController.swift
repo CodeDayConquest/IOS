@@ -20,7 +20,6 @@ class GameViewController: UIViewController {
             let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true
-            
             // Detect the screensize
             let sizeRect = UIScreen.mainScreen().applicationFrame
             let width = sizeRect.size.width * UIScreen.mainScreen().scale
