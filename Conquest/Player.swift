@@ -36,14 +36,19 @@ class Player: SKSpriteNode {
             switch (playerState) {
             case .Idle:
                 print("idle")
+                playerSprite = SKTexture(imageNamed: "idle.png")
             case .Walk:
                 print("walk")
+                playerSprite = SKTexture(imageNamed: "walkforward.png")
             case .Block:
                 print("block")
+                playerSprite = SKTexture(imageNamed: "punchforward.png")
             case .Kick:
                 print("kick")
+                playerSprite = SKTexture(imageNamed: "walkforward.png")
             case .Punch:
                 print("punch")
+                playerSprite = SKTexture(imageNamed: "punchforward.png")
             }
         }
     }
@@ -78,6 +83,25 @@ class Player: SKSpriteNode {
     func addXP(xp: Int) {
         playerXP += xp
         updateLevel()
+    }
+    
+    func setPlayerState(state: String) {
+        if state == "idle" {
+            playerSprite = SKTexture(imageNamed: "idle.png")
+            playerState = .Idle
+        } else if state == "walk" {
+            playerSprite = SKTexture(imageNamed: "walkforward.png")
+            playerState = .Walk
+        } else if state == "block" {
+            playerSprite = SKTexture(imageNamed: "idle.png")
+            playerState = .Block
+        } else if state == "kick" {
+            playerSprite = SKTexture(imageNamed: "punchforward.png")
+            playerState = .Kick
+        } else if state == "punch" {
+            playerSprite = SKTexture(imageNamed: "punchforward.png")
+            playerState = .Punch
+        }
     }
     
     func updateLevel() -> Int {

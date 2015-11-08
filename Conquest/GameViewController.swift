@@ -17,6 +17,7 @@ class GameViewController: UIViewController {
 
         if let scene = GameScene(fileNamed:"GameScene") {
             // Configure the view.
+            self.view.backgroundColor = UIColor.whiteColor()
             let skView = self.view as! SKView
             skView.showsFPS = true
             skView.showsNodeCount = true

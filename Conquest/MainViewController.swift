@@ -35,6 +35,7 @@ class MainViewController: UIViewController {
         
         toGame()
     }
+
     
     func connectToServer() {
         socket.on("connect") { data, ack in
@@ -44,7 +45,6 @@ class MainViewController: UIViewController {
         socket.on("error") { data, ack in
             self.playButton.enabled = false
             self.playButton.titleLabel?.text = "Can't connect"
-            
         }
         
         socket.connect()
