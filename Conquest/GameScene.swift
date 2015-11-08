@@ -300,14 +300,14 @@ class GameScene: SKScene {
     }
     func checkLose()
     {
-        if(player.playerHealth <= 0)
-        {
-            print("You lose")
-            exit(0)
-        }
-        else if (other_player.playerHealth <= 0)
+        if(other_player.playerHealth <= 0)
         {
             print("They lose")
+            exit(0)
+        }
+        else if (player.playerHealth <= 0)
+        {
+            print("You lose")
             exit(0)
         }
         else
