@@ -271,6 +271,9 @@ class GameScene: SKScene {
 //                waitForGame()
 //            }
             
+            
+            retrieveInfo()
+            
             counter++
         }
 }
