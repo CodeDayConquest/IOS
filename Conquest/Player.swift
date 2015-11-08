@@ -21,17 +21,16 @@ enum PlayerDirection: String {
     case Right = "right"
 }
 
-
 class Player: SKSpriteNode {
     
     var playerHealth: Float
     var playerSize: CGSize
     var playerPos: CGPoint
-    var playerSprite: SKTexture?
+    var playerSprite: SKTexture? = nil
     var playerLevel: Int
     var playerXP: Int
-    var playerUUID: UInt64
-    var matchID: UInt64
+    var playerUUID: String
+    var matchID: String
     var playerState: PlayerState = .Idle {
         didSet {
             switch (playerState) {
@@ -55,7 +54,7 @@ class Player: SKSpriteNode {
         }
     }
     
-    init(playerHealth: Float, playerSize: CGSize, playerPos: CGPoint, playerSprite: SKTexture?, playerLevel: Int, playerXP: Int, playerUUID: UInt64,matchID: UInt64, playerState: PlayerState, playerDirection: PlayerDirection) {
+    init(playerHealth: Float, playerSize: CGSize, playerPos: CGPoint, playerSprite: SKTexture?, playerLevel: Int, playerXP: Int, playerUUID: String, matchID: String, playerState: PlayerState, playerDirection: PlayerDirection) {
         
         self.playerHealth = playerHealth
         self.playerSize = playerSize
@@ -83,6 +82,7 @@ class Player: SKSpriteNode {
     
     func updateLevel() -> Int {
         playerLevel = Int(playerXP / 1000)
+        
         return playerLevel
     }
     

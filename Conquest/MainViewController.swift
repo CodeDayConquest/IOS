@@ -9,15 +9,37 @@
 import UIKit
 import Socket_IO_Client_Swift
 
+let socket = SocketIOClient(socketURL: "http://45.55.169.135:3000", options: [.Log(true), .ForcePolling(true)])
+
 class MainViewController: UIViewController {
 
     @IBOutlet weak var playButton: UIButton!
+    @IBOutlet weak var loading: UILabel!
+    @IBOutlet weak var loadingView: UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let socket = SocketIOClient(socketURL: "http://45.55.169.135:3000", options: [.Log(true), .ForcePolling(true)])
+        connectToServer()
         
+        loadingView.hidden = true
+        self.view.backgroundColor = UIColor.purpleColor()
+        
+        // Do any additional setup after loading the view.
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func goToGame(sender: UIButton) {
+        loadingView.hidden = false
+        loading.hidden = false
+        socket.emit("join", "join")
+    }
+    
+    func connectToServer() {
         socket.on("connect") { data, ack in
             print("socket connected")
         }
@@ -29,17 +51,6 @@ class MainViewController: UIViewController {
         }
         
         socket.connect()
-        
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func goToGame(sender: UIButton) {
-        toGame()
     }
     
     func toGame() // goes to game view controller
