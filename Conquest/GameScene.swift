@@ -284,6 +284,7 @@ class GameScene: SKScene {
             other_player.playerHealth -= randDamage - damageReduction
             let dict = ["playerHealth":other_player.playerHealth, "id":other_player.matchID]
             socket.emit("health", dict)
+            checkLose()
         }
     }
     
@@ -292,10 +293,30 @@ class GameScene: SKScene {
             if let objects = data[0] as? NSDictionary {
                 self.player.playerHealth = objects.valueForKey("health") as! Float
                 print("ffff: \(self.player.playerHealth)")
-                self.healthBarView!.progress = objects.valueForKey("health") as! Float
+                self.healthBarView!.progress = self.player.playerHealth / 100.0
             }
+            self.checkLose()
         }
     }
+    func checkLose()
+    {
+        if(player.playerHealth <= 0)
+        {
+            print("You lose")
+            exit(0)
+        }
+        else if (other_player.playerHealth <= 0)
+        {
+            print("They lose")
+            exit(0)
+        }
+        else
+        {
+            print("no one lost")
+        }
+    }
+    
+
     
     //    func didWin() -> Bool {
     //        if player.playerHealth <= 0 {
