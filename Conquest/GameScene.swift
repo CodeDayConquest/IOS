@@ -23,6 +23,10 @@ class GameScene: SKScene {
     var kickButton: SKSpriteNode! = nil
     var blockButton: SKSpriteNode! = nil
     
+    var loadingScreen: SKSpriteNode! = nil
+    var loadingLabel: SKLabelNode! = nil
+    
+    
     var hasStarted: Bool = false
     
     override func didMoveToView(view: SKView) {
@@ -31,6 +35,16 @@ class GameScene: SKScene {
         // Add Buttons to Screen
         
         waitForGame()
+        
+        loadingScreen = SKSpriteNode(color: UIColor.lightGrayColor(), size: CGSize(width: size.width, height: size.height))
+        loadingScreen.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        
+        loadingLabel = SKLabelNode(fontNamed: "System")
+        loadingLabel.text = "Loading"
+        loadingLabel.fontColor = UIColor.blackColor()
+        loadingLabel.fontSize = 100
+        loadingLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
+
         
         let platform = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: size.width, height: 10))
         platform.position = CGPoint(x: size.width / 2, y: size.height / 3 - platform.size.height)
@@ -68,6 +82,8 @@ class GameScene: SKScene {
         self.addChild(kickButton)
         self.addChild(blockButton)
         self.addChild(punchButton)
+        self.addChild(loadingScreen)
+        self.addChild(loadingLabel)
         
     }
     
@@ -77,7 +93,10 @@ class GameScene: SKScene {
             if let objects = data[0] as? NSDictionary {
                 
                 self.initPlayer(objects.valueForKey("side") as! String, matchID: objects.valueForKey("matchId") as! String)
+                
                 self.hasStarted = true
+                self.loadingLabel.hidden = true
+                self.loadingScreen.hidden = true
             }
         }
     }
@@ -270,6 +289,27 @@ class GameScene: SKScene {
 //            if(!hasStarted) {
 //                waitForGame()
 //            }
+            if !loadingLabel.hidden && (counter % 30 == 0)
+            {
+                if(counter <= 40)
+                {
+                    self.loadingLabel.text = "Loading."
+                }
+                else if(counter <= 60)
+                {
+                    self.loadingLabel.text = "Loading.."
+                }
+                else if(counter <= 80)
+                {
+                    self.loadingLabel.text = "Loading..."
+                }
+                else
+                {
+                    self.loadingLabel.text = "Loading"
+                    counter = 0
+                }
+                
+            }
             
             
             retrieveInfo()
