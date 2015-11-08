@@ -15,13 +15,18 @@ class GameScene: SKScene {
     
     override func didMoveToView(view: SKView) {
         /* Setup your scene here */
+        // Add Player to Screen
+        
+        /// Player One
         player = SKSpriteNode(color: UIColor.greenColor(), size: CGSize(width: 100, height: 100))
-        player_two = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 100, height: 100))
-        
-        // add player to screen
         player.position = CGPoint(x: player.size.width / 2, y: size.height / 2)
-        player_two.position = CGPoint(x: size.width - player_two.size.width / 2, y: size.height / 2)
         
+        
+        /// Player Two
+        player_two = SKSpriteNode(color: UIColor.redColor(), size: CGSize(width: 100, height: 100))
+         player_two.position = CGPoint(x: size.width - player_two.size.width / 2, y: size.height / 2)
+        
+        // Add objects to Screen
         self.addChild(player)
         self.addChild(player_two)
     }
@@ -63,8 +68,21 @@ class GameScene: SKScene {
     }
     
     func distance() -> CGFloat {
-        let xDist = CGFloat(player_two.position.x - player.position.x)
-        let yDist = CGFloat(player_two.position.y - player.position.y)
+        var xDist = CGFloat(player_two.position.x - player.position.x)
+        var yDist = CGFloat(player_two.position.y - player.position.y)
+        
+        if player.position.x < player_two.position.x {
+            xDist = (player_two.position.x - player_two.size.width / 2) - (player.position.x + player.size.width / 2)
+        } else {
+            xDist = (player.position.x - player.size.width / 2) - (player_two.position.x + player_two.size.width / 2)
+        }
+        
+        if player.position.y < player_two.position.y {
+            yDist = (player_two.position.y - player_two.size.width / 2) - (player.position.y + player.size.width / 2)
+        } else {
+            yDist = (player.position.y - player.size.width / 2) - (player_two.position.y + player_two.size.width / 2)
+        }
+        
         let distance = sqrt((xDist * xDist) + (yDist * yDist))
         
         return distance
@@ -72,6 +90,18 @@ class GameScene: SKScene {
     
     func attack() {
         
+        if distance() < size.width / 30
+        {
+            
+        }
+        
+        
+    }
+    
+    func randomNumber() -> Int {
+        let random = Int(arc4random_uniform(UInt32(10)))
+        
+        return random
     }
     
     override func update(currentTime: CFTimeInterval) {
