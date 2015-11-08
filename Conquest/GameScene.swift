@@ -159,7 +159,7 @@ class GameScene: SKScene {
                 player.playerDirection = .Left
                 player.playerPos.x = player.position.x
                 
-                let dict: [String: AnyObject] = ["matchID":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
+                let dict: [String: AnyObject] = ["id":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
                 
                 socket.emit("move", dict)
                 
@@ -180,7 +180,7 @@ class GameScene: SKScene {
                 player.playerDirection = .Right
                 player.playerPos.x = player.position.x
                 
-                let dict: [String: AnyObject] = ["matchID":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
+                let dict: [String: AnyObject] = ["id":player.matchID, "playerPosX":player.playerPos.x, "playerPosY":player.playerPos.y, "playerState":player.playerState.rawValue, "playerDirection":player.playerDirection.rawValue]
                 
                 socket.emit("move", dict)
                 
