@@ -14,15 +14,12 @@ let socket = SocketIOClient(socketURL: "http://45.55.169.135:3000", options: [.L
 class MainViewController: UIViewController {
 
     @IBOutlet weak var playButton: UIButton!
-    @IBOutlet weak var loading: UILabel!
-    @IBOutlet weak var loadingView: UIView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         connectToServer()
         
-        loadingView.hidden = true
         self.view.backgroundColor = UIColor.purpleColor()
         
         // Do any additional setup after loading the view.
@@ -34,8 +31,6 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func goToGame(sender: UIButton) {
-        loadingView.hidden = false
-        loading.hidden = false
         socket.emit("join", "join")
         
         toGame()

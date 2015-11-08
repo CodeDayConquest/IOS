@@ -36,12 +36,12 @@ class GameScene: SKScene {
         
         waitForGame()
         
-        loadingScreen = SKSpriteNode(color: UIColor.lightGrayColor(), size: CGSize(width: size.width, height: size.height))
+        loadingScreen = SKSpriteNode(color: UIColor(red: 213 / 255.0, green: 62 / 255.0, blue: 75 / 255.0, alpha: 1.0), size: CGSize(width: size.width, height: size.height))
         loadingScreen.position = CGPoint(x: size.width / 2, y: size.height / 2)
         
         loadingLabel = SKLabelNode(fontNamed: "System")
         loadingLabel.text = "Loading"
-        loadingLabel.fontColor = UIColor.blackColor()
+        loadingLabel.fontColor = UIColor.whiteColor()
         loadingLabel.fontSize = 100
         loadingLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
 
