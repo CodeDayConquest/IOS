@@ -37,6 +37,8 @@ class MainViewController: UIViewController {
         loadingView.hidden = false
         loading.hidden = false
         socket.emit("join", "join")
+        
+        toGame()
     }
     
     func connectToServer() {
