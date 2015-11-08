@@ -57,6 +57,17 @@ class GameViewController: UIViewController {
         }
     }
 
+    @IBAction func back(sender: AnyObject) {
+        goBack()
+    }
+    
+    func goBack() // goes back to main view controller
+    {
+        if let navController = self.navigationController {
+            navController.popToRootViewControllerAnimated(false)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Release any cached data, images, etc that aren't in use.
