@@ -30,6 +30,8 @@ class GameScene: SKScene {
         // Add Player to Screen
         // Add Buttons to Screen
         
+        waitForGame()
+        
         let platform = SKSpriteNode(color: UIColor.whiteColor(), size: CGSize(width: size.width, height: 10))
         platform.position = CGPoint(x: size.width / 2, y: size.height / 3 - platform.size.height)
         
@@ -80,18 +82,14 @@ class GameScene: SKScene {
         }
     }
     
-    func initPlayer(side : String, matchID : String)
-    {
-        if side == "right"
-        {
+    func initPlayer(side: String, matchID: String) {
+        if side == "right" {
             self.player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.75, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Left)
             
             
             self.other_player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Right)
             
-        }
-        else
-        {
+        } else {
             
             self.player = Player(playerHealth: 100, playerSize: CGSize(width: 100, height: 100), playerPos: CGPoint(x: size.width * 0.25, y: size.height / 2.0), playerSprite: nil, playerLevel: 1, playerXP: 100, playerUUID: "", matchID: matchID, playerState: PlayerState.Idle, playerDirection: PlayerDirection.Right)
             
@@ -99,13 +97,12 @@ class GameScene: SKScene {
 
             
         }
+        
         self.player.color = UIColor.whiteColor()
         self.other_player.color = UIColor.redColor()
         
         self.addChild(player)
         self.addChild(other_player)
-        
-
     }
         override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
             /* Called when a touch begins */
@@ -256,14 +253,23 @@ class GameScene: SKScene {
         }
         
         func retrieveInfo() {
-            
+            // movement, health
+            socket.on("move") { (data: [AnyObject], ack) -> Void in
+                if let objects = data[0] as? NSDictionary {
+                    self.other_player.position.x = objects.valueForKey("x") as! CGFloat
+                    self.other_player.position.y = objects.valueForKey("y") as! CGFloat
+                    self.other_player.playerPos = CGPoint(x: self.other_player.position.x, y: self.other_player.position.y)
+                } else {
+                    print("ther was no movement")
+                }
+            }
         }
         
         override func update(currentTime: CFTimeInterval) {
             // setInfo()
-            if(!hasStarted) {
-                waitForGame()
-            }
+//            if(!hasStarted) {
+//                waitForGame()
+//            }
             
             counter++
         }
