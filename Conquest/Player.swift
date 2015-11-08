@@ -35,11 +35,17 @@ class Player: SKSpriteNode
 
     }
 
-    func addXP(xp : Int)
+    func addXP(xp: Int)
     {
         playerXP += xp
+        updateLevel()
     }
     
+    func updateLevel() -> Int
+    {
+        playerLevel = Int(playerXP / 1000)
+        return playerLevel
+    }
     
     
     required init?(coder aDecoder: NSCoder) {

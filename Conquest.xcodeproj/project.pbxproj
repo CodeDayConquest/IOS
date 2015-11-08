@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		18A5A1C91BEEC2EE008EFC67 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5A1C81BEEC2EE008EFC67 /* Player.swift */; settings = {ASSET_TAGS = (); }; };
+		18A5A1CB1BEEF5AC008EFC67 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A5A1CA1BEEF5AC008EFC67 /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		32C82CD21BEE963200614C1A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C82CD11BEE963200614C1A /* AppDelegate.swift */; };
 		32C82CD41BEE963200614C1A /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 32C82CD31BEE963200614C1A /* GameScene.sks */; };
 		32C82CD61BEE963200614C1A /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32C82CD51BEE963200614C1A /* GameScene.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		18A5A1C81BEEC2EE008EFC67 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		18A5A1CA1BEEF5AC008EFC67 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		1CFDF64296174C003E7E6972 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C82CCE1BEE963200614C1A /* Conquest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Conquest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		32C82CD11BEE963200614C1A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				18A5A1C81BEEC2EE008EFC67 /* Player.swift */,
 				32C82CD71BEE963200614C1A /* GameViewController.swift */,
 				32C82D051BEE98D700614C1A /* Socket.swift */,
+				18A5A1CA1BEEF5AC008EFC67 /* MainViewController.swift */,
 				32C82CD91BEE963200614C1A /* Main.storyboard */,
 				32C82CDC1BEE963300614C1A /* Assets.xcassets */,
 				32C82CDE1BEE963300614C1A /* LaunchScreen.storyboard */,
@@ -346,6 +349,7 @@
 				32C82D061BEE98D700614C1A /* Socket.swift in Sources */,
 				32C82CD61BEE963200614C1A /* GameScene.swift in Sources */,
 				32C82CD81BEE963200614C1A /* GameViewController.swift in Sources */,
+				18A5A1CB1BEEF5AC008EFC67 /* MainViewController.swift in Sources */,
 				18A5A1C91BEEC2EE008EFC67 /* Player.swift in Sources */,
 				32C82CD21BEE963200614C1A /* AppDelegate.swift in Sources */,
 			);
